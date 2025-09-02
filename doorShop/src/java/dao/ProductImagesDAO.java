@@ -32,14 +32,7 @@ public class ProductImagesDAO implements IDAO<ProductImages, Integer> {
             st = c.prepareStatement(CREATE);
             st.setInt(1, e.getProduct_id());
             st.setString(2, e.getImage_url());
-
-            // Vì caption trong DTO đang là Date → mình convert sang timestamp
-            if (e.getCaption() != null) {
-                st.setTimestamp(3, new Timestamp(e.getCaption().getTime()));
-            } else {
-                st.setNull(3, Types.TIMESTAMP);
-            }
-
+            st.setString(3, e.getCaption());
             st.setInt(4, e.getStatus());
 
             return st.executeUpdate() > 0;
@@ -120,18 +113,13 @@ public class ProductImagesDAO implements IDAO<ProductImages, Integer> {
         pi.setImage_id(rs.getInt("image_id"));
         pi.setProduct_id(rs.getInt("product_id"));
         pi.setImage_url(rs.getString("image_url"));
+        pi.setStatus(rs.getInt("status"));
 
-        Timestamp captionTs = rs.getTimestamp("caption");
-        if (captionTs != null) {
-            pi.setCaption(new java.util.Date(captionTs.getTime()));
-        }
-
+        // created_at
         Timestamp createdTs = rs.getTimestamp("created_at");
         if (createdTs != null) {
             pi.setCreated_at(new java.util.Date(createdTs.getTime()));
         }
-
-        pi.setStatus(rs.getInt("status"));
 
         return pi;
     }

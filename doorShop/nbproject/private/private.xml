@@ -4,11 +4,18 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/PRJ301/Felance/door/doorShop/doorShop/web/login.jsp</file>
-            <file>file:/D:/PRJ301/Felance/door/doorShop/doorShop/src/java/dao/IDAO.java</file>
+            <file>file:/D:/PRJ301/Felance/door/doorShop/doorShop/src/java/dto/Products.java</file>
+            <file>file:/D:/PRJ301/Felance/door/doorShop/doorShop/src/java/controller/ProductController.java</file>
             <file>file:/D:/PRJ301/Felance/door/doorShop/doorShop/src/java/dao/AdminDAO.java</file>
-            <file>file:/D:/PRJ301/Felance/door/doorShop/doorShop/src/java/utils/AuthUtils.java</file>
-            <file>file:/D:/PRJ301/Felance/door/doorShop/doorShop/web/index.html</file>
+            <file>file:/D:/PRJ301/Felance/door/doorShop/doorShop/src/java/dao/ProductImagesDAO.java</file>
+            <file>file:/D:/PRJ301/Felance/door/doorShop/doorShop/src/java/controller/MainController.java</file>
+            <file>file:/D:/PRJ301/Felance/door/doorShop/doorShop/src/java/dto/ProductImages.java</file>
+            <file>file:/D:/PRJ301/Felance/door/doorShop/doorShop/src/java/dto/Admin.java</file>
+            <file>file:/D:/PRJ301/Felance/door/doorShop/doorShop/src/java/dto/Discounts.java</file>
+            <file>file:/D:/PRJ301/Felance/door/doorShop/doorShop/src/java/dto/Posts.java</file>
+            <file>file:/D:/PRJ301/Felance/door/doorShop/doorShop/src/java/dao/BannersDAO.java</file>
             <file>file:/D:/PRJ301/Felance/door/doorShop/doorShop/web/welcome.jsp</file>
+            <file>file:/D:/PRJ301/Felance/door/doorShop/doorShop/src/java/dao/ProductsDAO.java</file>
         </group>
     </open-files>
 </project-private>

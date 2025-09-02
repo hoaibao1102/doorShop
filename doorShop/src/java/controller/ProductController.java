@@ -1,34 +1,47 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
 package controller;
 
+import dao.ProductsDAO;
+import dto.Products;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
-@WebServlet(name = "MainController", urlPatterns = {"", "/MainController", "/mc"})
-public class MainController extends HttpServlet {
+/**
+ *
+ * @author ADMIN
+ */
+@WebServlet(name = "ProductController", urlPatterns = {"/ProductController"})
+public class ProductController extends HttpServlet {
 
-    private static final String WELCOME = "login.jsp";
+    private final ProductsDAO productsdao = new ProductsDAO();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = WELCOME;
+        String url = "welcome.jsp";
         try {
             String action = request.getParameter("action");
-            System.out.println(">>> doPost, action = " + action);
-            if (isUserAction(action)) {
-                url = "/UserController";
-            } else if (isProductAction(action)) {
-                url = "/ProductController";
+
+            if (action == null || action.isEmpty()) {
+                url = handleViewAllProducts(request, response);
+            } else if (action.equals("searchProduct")) {
+                url = handleProductSearching(request, response);
             }
         } catch (Exception e) {
+            request.setAttribute("checkError", "Unexpected error: " + e.getMessage());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
-        //
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -70,13 +83,32 @@ public class MainController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private boolean isUserAction(String action) {
-        return "login".equals(action)
-                || "logout".equals(action);
+    private String handleViewAllProducts(HttpServletRequest request, HttpServletResponse response) {
+        List<Products> list = productsdao.getAll();
+        request.setAttribute("list", list);
+        return "welcome.jsp";
     }
 
-    private boolean isProductAction(String action) {
-        return "searchProduct".equals(action);
+    private String handleProductSearching(HttpServletRequest request, HttpServletResponse response) {
+        String checkError = "";
+        String keyword = request.getParameter("keyword");
+        List<Products> list;
+        System.out.println(">>> Keyword nhận từ request: " + keyword);  // debug
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            list = productsdao.getByName(keyword.trim());
+            if (list == null || list.isEmpty()) {
+                checkError = "No products found with name: " + keyword;
+            }
+            request.setAttribute("list", list);
+        } else {
+            list = productsdao.getAll();
+        }
+
+        request.setAttribute("keyword", keyword);
+        request.setAttribute("list", list);
+        request.setAttribute("checkError", checkError);
+
+        return "welcome.jsp";
     }
 
 }
