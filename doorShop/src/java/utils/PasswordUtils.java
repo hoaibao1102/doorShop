@@ -58,11 +58,11 @@ public class PasswordUtils {
     }
 
     public static void main(String[] args) {
-//        System.out.println(encryptSHA256("1"));
-//        AdminDAO udao = new AdminDAO();
-//        List<Admin> list = udao.getAll();
-//        for (Admin u : list) {
-//            udao.updatePassword(u.getUsername(), encryptSHA256(u.getPassword_hash()));
-//        }
+        System.out.println(encryptSHA256("1"));
+        AdminDAO udao = new AdminDAO();
+        List<Admin> list = udao.getAll();
+        for (Admin u : list) {
+            udao.updatePassword(u.getUsername(), encryptSHA256(u.getPassword_hash()));
+        }
     }
 }
