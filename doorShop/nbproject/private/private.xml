@@ -2,27 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/freelance/doorshop/doorShop/src/java/dto/Posts.java</file>
-            <file>file:/D:/freelance/doorshop/doorShop/src/java/dao/ProductImagesDAO.java</file>
-            <file>file:/D:/freelance/doorshop/doorShop/src/java/dao/ContactMessagesDAO.java</file>
-            <file>file:/D:/freelance/doorshop/doorShop/src/java/dto/Discounts.java</file>
-            <file>file:/D:/freelance/doorshop/doorShop/src/java/dao/CategoriesDAO.java</file>
-            <file>file:/D:/freelance/doorshop/doorShop/src/java/dto/Categories.java</file>
-            <file>file:/D:/freelance/doorshop/doorShop/src/java/dao/BannersDAO.java</file>
-            <file>file:/D:/freelance/doorshop/doorShop/src/java/dto/Products.java</file>
-            <file>file:/D:/freelance/doorshop/doorShop/src/java/dto/Admin.java</file>
-            <file>file:/D:/freelance/doorshop/doorShop/src/java/dto/Brands.java</file>
-            <file>file:/D:/freelance/doorshop/doorShop/src/java/dao/AdminDAO.java</file>
-            <file>file:/D:/freelance/doorshop/doorShop/src/java/dao/ProductsDAO.java</file>
-            <file>file:/D:/freelance/doorshop/doorShop/src/java/dto/Banners.java</file>
-            <file>file:/D:/freelance/doorshop/doorShop/src/java/dao/BrandsDAO.java</file>
-            <file>file:/D:/freelance/doorshop/doorShop/src/java/dao/PostsDAO.java</file>
-            <file>file:/D:/freelance/doorshop/doorShop/src/java/dto/ContactMessages.java</file>
-            <file>file:/D:/freelance/doorshop/doorShop/src/java/utils/DBUtils.java</file>
-            <file>file:/D:/freelance/doorshop/doorShop/src/java/dao/DiscountsDAO.java</file>
-            <file>file:/D:/freelance/doorshop/doorShop/src/java/dto/ProductImages.java</file>
-            <file>file:/D:/freelance/doorshop/doorShop/src/java/dao/IDAO.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

@@ -10,6 +10,7 @@ import utils.DBUtils;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import utils.PasswordUtils;
 
 /**
  *
@@ -22,7 +23,9 @@ public class AdminDAO implements IDAO<Admin, Integer> {
     private static final String GET_BY_NAME = "SELECT * FROM dbo.Admin WHERE username LIKE ?";
     private static final String CREATE
             = "INSERT INTO dbo.Admin (username, password_hash, email, full_name, phone) VALUES (?, ?, ?, ?, ?)";
-
+    private static final String UPDATE_PASSWORD_BY_USERNAME =
+        "UPDATE dbo.Admin SET password_hash = ? WHERE username = ?";
+    
     @Override
     public boolean create(Admin e) {
         Connection c = null;
@@ -143,6 +146,27 @@ public class AdminDAO implements IDAO<Admin, Integer> {
                 c.close();
             }
         } catch (Exception ignore) {
+        }
+    }
+
+    public boolean updatePassword(String userName, String newPassword) {
+        Connection c = null;
+        PreparedStatement st = null;
+        try {
+            c = DBUtils.getConnection();
+            st = c.prepareStatement(UPDATE_PASSWORD_BY_USERNAME);
+
+            // Hash trước khi lưu
+            String hashed = PasswordUtils.encryptSHA256(newPassword);
+            st.setString(1, hashed);
+            st.setString(2, userName);
+
+            return st.executeUpdate() > 0;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        } finally {
+            close(c, st, null);
         }
     }
 }
