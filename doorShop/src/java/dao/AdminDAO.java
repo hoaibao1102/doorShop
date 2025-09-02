@@ -23,9 +23,9 @@ public class AdminDAO implements IDAO<Admin, Integer> {
     private static final String GET_BY_NAME = "SELECT * FROM dbo.Admin WHERE username LIKE ?";
     private static final String CREATE
             = "INSERT INTO dbo.Admin (username, password_hash, email, full_name, phone) VALUES (?, ?, ?, ?, ?)";
-    private static final String UPDATE_PASSWORD_BY_USERNAME =
-        "UPDATE dbo.Admin SET password_hash = ? WHERE username = ?";
-    
+    private static final String UPDATE_PASSWORD_BY_USERNAME
+            = "UPDATE dbo.Admin SET password_hash = ? WHERE username = ?";
+
     @Override
     public boolean create(Admin e) {
         Connection c = null;
@@ -150,23 +150,48 @@ public class AdminDAO implements IDAO<Admin, Integer> {
     }
 
     public boolean updatePassword(String userName, String newPassword) {
+        try {
+            Connection conn = DBUtils.getConnection();
+            PreparedStatement ps = conn.prepareStatement(UPDATE_PASSWORD_BY_USERNAME);
+            ps.setString(1, newPassword);
+            ps.setString(2, userName);
+            int result = ps.executeUpdate();
+            return result > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public Admin getByUsername(String username) {
         Connection c = null;
         PreparedStatement st = null;
+        ResultSet rs = null;
         try {
             c = DBUtils.getConnection();
-            st = c.prepareStatement(UPDATE_PASSWORD_BY_USERNAME);
-
-            // Hash trước khi lưu
-            String hashed = PasswordUtils.encryptSHA256(newPassword);
-            st.setString(1, hashed);
-            st.setString(2, userName);
-
-            return st.executeUpdate() > 0;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return false;
+            String sql = "SELECT * FROM dbo.Admin WHERE username = ?";
+            st = c.prepareStatement(sql);
+            st.setString(1, username);
+            rs = st.executeQuery();
+            if (rs.next()) {
+                return map(rs);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
-            close(c, st, null);
+            close(c, st, rs);
         }
+        return null;
+    }
+
+    public boolean login(String userName, String rawPassword) {
+        Admin admin = getByUsername(userName);
+        if (admin == null) {
+            return false;
+        }
+
+        String inputHash = PasswordUtils.encryptSHA256(rawPassword);
+
+        return inputHash.equalsIgnoreCase(admin.getPassword_hash());
     }
 }
