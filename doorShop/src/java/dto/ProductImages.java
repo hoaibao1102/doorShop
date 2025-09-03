@@ -11,23 +11,24 @@ import java.util.Date;
  * @author MSI PC
  */
 public class ProductImages {
+
     private int image_id;
     private int product_id;
     private String image_url;
-    private Date caption;
-    private Date created_at;
+    private String caption;
     private int status;
+    private Date created_at;
 
     public ProductImages() {
     }
 
-    public ProductImages(int image_id, int product_id, String image_url, Date caption, Date created_at, int status) {
+    public ProductImages(int image_id, int product_id, String image_url, String caption, int status, Date created_at) {
         this.image_id = image_id;
         this.product_id = product_id;
         this.image_url = image_url;
         this.caption = caption;
-        this.created_at = created_at;
         this.status = status;
+        this.created_at = created_at;
     }
 
     public int getImage_id() {
@@ -54,12 +55,20 @@ public class ProductImages {
         this.image_url = image_url;
     }
 
-    public Date getCaption() {
+    public String getCaption() {
         return caption;
     }
 
-    public void setCaption(Date caption) {
+    public void setCaption(String caption) {
         this.caption = caption;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public Date getCreated_at() {
@@ -70,13 +79,4 @@ public class ProductImages {
         this.created_at = created_at;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-    
-    
 }

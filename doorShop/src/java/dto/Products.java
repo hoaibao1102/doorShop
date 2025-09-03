@@ -11,6 +11,7 @@ import java.util.Date;
  * @author MSI PC
  */
 public class Products {
+
     private int product_id;
     private int category_id;
     private int brand_id;
@@ -18,14 +19,23 @@ public class Products {
     private double price;
     private String spec_html;
     private int main_image_id;
-    private Date caption;
+    private String status;
     private Date created_at;
-    private int status;
+    private Date updated_at;
+    private ProductImages image;
+
+    public ProductImages getImage() {
+        return image;
+    }
+
+    public void setImage(ProductImages image) {
+        this.image = image;
+    }
 
     public Products() {
     }
 
-    public Products(int product_id, int category_id, int brand_id, String name, double price, String spec_html, int main_image_id, Date caption, Date created_at, int status) {
+    public Products(int product_id, int category_id, int brand_id, String name, double price, String spec_html, int main_image_id, String status, Date created_at, Date updated_at) {
         this.product_id = product_id;
         this.category_id = category_id;
         this.brand_id = brand_id;
@@ -33,9 +43,9 @@ public class Products {
         this.price = price;
         this.spec_html = spec_html;
         this.main_image_id = main_image_id;
-        this.caption = caption;
-        this.created_at = created_at;
         this.status = status;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
     }
 
     public int getProduct_id() {
@@ -94,12 +104,12 @@ public class Products {
         this.main_image_id = main_image_id;
     }
 
-    public Date getCaption() {
-        return caption;
+    public String getStatus() {
+        return status;
     }
 
-    public void setCaption(Date caption) {
-        this.caption = caption;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Date getCreated_at() {
@@ -110,13 +120,12 @@ public class Products {
         this.created_at = created_at;
     }
 
-    public int getStatus() {
-        return status;
+    public Date getUpdated_at() {
+        return updated_at;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setUpdated_at(Date updated_at) {
+        this.updated_at = updated_at;
     }
-    
-    
+
 }

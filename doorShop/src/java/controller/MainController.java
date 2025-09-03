@@ -18,10 +18,11 @@ public class MainController extends HttpServlet {
         String url = WELCOME;
         try {
             String action = request.getParameter("action");
+            System.out.println(">>> doPost, action = " + action);
             if (isUserAction(action)) {
                 url = "/UserController";
             } else if (isProductAction(action)) {
-                url = "/ProjectController";
+                url = "/ProductController";
             }
         } catch (Exception e) {
         } finally {
@@ -75,7 +76,7 @@ public class MainController extends HttpServlet {
     }
 
     private boolean isProductAction(String action) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "searchProduct".equals(action);
     }
 
 }
