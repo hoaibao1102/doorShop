@@ -22,6 +22,15 @@ public class Products {
     private String status;
     private Date created_at;
     private Date updated_at;
+    private ProductImages image;
+
+    public ProductImages getImage() {
+        return image;
+    }
+
+    public void setImage(ProductImages image) {
+        this.image = image;
+    }
 
     public Products() {
     }

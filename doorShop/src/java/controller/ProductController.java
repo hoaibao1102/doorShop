@@ -4,7 +4,9 @@
  */
 package controller;
 
+import dao.ProductImagesDAO;
 import dao.ProductsDAO;
+import dto.ProductImages;
 import dto.Products;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,6 +26,7 @@ import java.util.List;
 public class ProductController extends HttpServlet {
 
     private final ProductsDAO productsdao = new ProductsDAO();
+    private final ProductImagesDAO productImagesDAO = new ProductImagesDAO();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -93,15 +96,31 @@ public class ProductController extends HttpServlet {
         String checkError = "";
         String keyword = request.getParameter("keyword");
         List<Products> list;
+
         System.out.println(">>> Keyword nhận từ request: " + keyword);  // debug
+
         if (keyword != null && !keyword.trim().isEmpty()) {
             list = productsdao.getByName(keyword.trim());
+
             if (list == null || list.isEmpty()) {
                 checkError = "No products found with name: " + keyword;
+            } else {
+                // Lấy ảnh cho từng sản phẩm
+                for (Products p : list) {
+                    ProductImages img = productImagesDAO.getByProductId(p.getProduct_id());
+                    p.setImage(img); // giả sử Products có field image + setter
+                }
             }
+
             request.setAttribute("list", list);
         } else {
             list = productsdao.getAll();
+
+            // cũng lấy ảnh cho tất cả sản phẩm
+            for (Products p : list) {
+                ProductImages img = productImagesDAO.getByProductId(p.getProduct_id());
+                p.setImage(img);
+            }
         }
 
         request.setAttribute("keyword", keyword);

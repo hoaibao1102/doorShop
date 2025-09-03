@@ -144,4 +144,30 @@ public class ProductImagesDAO implements IDAO<ProductImages, Integer> {
         } catch (Exception ignore) {
         }
     }
+
+    public ProductImages getByProductId(int productId) {
+        ProductImages img = null;
+        Connection c = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        String sql = "SELECT TOP 1 * FROM ProductImages WHERE product_id = ? AND status = '1' ORDER BY created_at ASC";
+
+        try {
+            c = DBUtils.getConnection();
+            st = c.prepareStatement(sql);
+            st.setInt(1, productId);
+            rs = st.executeQuery();
+
+            if (rs.next()) {
+                img = map(rs);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            close(c, st, rs);
+        }
+
+        return img;
+    }
 }
