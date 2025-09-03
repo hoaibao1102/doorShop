@@ -21,8 +21,8 @@ public class ProductsDAO implements IDAO<Products, Integer> {
     private static final String GET_BY_ID = "SELECT * FROM dbo.Products WHERE product_id = ?";
     private static final String GET_BY_NAME = "SELECT * FROM dbo.Products WHERE name LIKE ?";
     private static final String CREATE
-            = "INSERT INTO dbo.Products (category_id, brand_id, name, price, spec_html, main_image_id, caption, status) "
-            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            = "INSERT INTO dbo.Products (category_id, brand_id, name, price, spec_html, main_image_id, status) "
+            + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     @Override
     public boolean create(Products e) {
@@ -37,15 +37,7 @@ public class ProductsDAO implements IDAO<Products, Integer> {
             st.setDouble(4, e.getPrice());
             st.setString(5, e.getSpec_html());
             st.setInt(6, e.getMain_image_id());
-
-            if (e.getCaption() != null) {
-                st.setTimestamp(7, new Timestamp(e.getCaption().getTime()));
-            } else {
-                st.setNull(7, Types.TIMESTAMP);
-            }
-
-            st.setInt(8, e.getStatus());
-
+            st.setString(7, e.getStatus());
             return st.executeUpdate() > 0;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -85,6 +77,7 @@ public class ProductsDAO implements IDAO<Products, Integer> {
         try {
             c = DBUtils.getConnection();
             st = c.prepareStatement(GET_BY_NAME);
+            System.out.println("Searching: %" + name + "%");
             st.setString(1, "%" + name + "%");
             rs = st.executeQuery();
             while (rs.next()) {
@@ -128,18 +121,19 @@ public class ProductsDAO implements IDAO<Products, Integer> {
         p.setPrice(rs.getDouble("price"));
         p.setSpec_html(rs.getString("spec_html"));
         p.setMain_image_id(rs.getInt("main_image_id"));
+        p.setStatus(rs.getString("status"));
 
-        Timestamp captionTs = rs.getTimestamp("caption");
-        if (captionTs != null) {
-            p.setCaption(new java.util.Date(captionTs.getTime()));
-        }
-
+        // created_at
         Timestamp createdTs = rs.getTimestamp("created_at");
         if (createdTs != null) {
             p.setCreated_at(new java.util.Date(createdTs.getTime()));
         }
 
-        p.setStatus(rs.getInt("status"));
+        // updated_at
+        Timestamp updatedTs = rs.getTimestamp("updated_at");
+        if (updatedTs != null) {
+            p.setUpdated_at(new java.util.Date(updatedTs.getTime()));
+        }
 
         return p;
     }
