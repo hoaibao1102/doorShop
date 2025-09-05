@@ -21,8 +21,8 @@ public class ProductsDAO implements IDAO<Products, Integer> {
     private static final String GET_BY_ID = "SELECT * FROM dbo.Products WHERE product_id = ?";
     private static final String GET_BY_NAME = "SELECT * FROM dbo.Products WHERE name LIKE ?";
     private static final String CREATE
-            = "INSERT INTO dbo.Products (category_id, brand_id, name, price, spec_html, main_image_id, status) "
-            + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            = "INSERT INTO dbo.Products (category_id, brand_id, name, price, spec_html, status) "
+            + "VALUES (?, ?, ?, ?, ?, ?)";
 
     @Override
     public boolean create(Products e) {
@@ -36,8 +36,7 @@ public class ProductsDAO implements IDAO<Products, Integer> {
             st.setString(3, e.getName());
             st.setDouble(4, e.getPrice());
             st.setString(5, e.getSpec_html());
-            st.setInt(6, e.getMain_image_id());
-            st.setString(7, e.getStatus());
+            st.setString(6, e.getStatus());
             return st.executeUpdate() > 0;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -157,5 +156,49 @@ public class ProductsDAO implements IDAO<Products, Integer> {
             }
         } catch (Exception ignore) {
         }
+    }
+
+    public int createNewProduct(Products e) {
+        Connection c = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        int generatedId = -1;
+        try {
+            c = DBUtils.getConnection();
+            // Thêm Statement.RETURN_GENERATED_KEYS để lấy id sinh ra
+            st = c.prepareStatement(CREATE, Statement.RETURN_GENERATED_KEYS);
+            st.setInt(1, e.getCategory_id());
+            st.setInt(2, e.getBrand_id());
+            st.setString(3, e.getName());
+            st.setDouble(4, e.getPrice());
+            st.setString(5, e.getSpec_html());
+            st.setString(6, e.getStatus());
+
+            int rows = st.executeUpdate();
+            if (rows > 0) {
+                rs = st.getGeneratedKeys();
+                if (rs.next()) {
+                    generatedId = rs.getInt(1);
+                    e.setProduct_id(generatedId); // gán lại vào object
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            close(c, st, rs);
+        }
+        return generatedId; // nếu lỗi trả về -1
+    }
+
+    public boolean updateMainImage(int productId, int imageId) {
+        String sql = "UPDATE dbo.Products SET main_image_id = ? WHERE product_id = ?";
+        try ( Connection c = DBUtils.getConnection();  PreparedStatement st = c.prepareStatement(sql)) {
+            st.setInt(1, imageId);
+            st.setInt(2, productId);
+            return st.executeUpdate() > 0;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 }
