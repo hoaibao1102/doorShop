@@ -96,7 +96,7 @@ CREATE TABLE dbo.Products (
     spec_html     NVARCHAR(MAX) NULL,
     main_image_id INT NULL,
     status        NVARCHAR(10)  NULL 
-                     CONSTRAINT CK_Products_status CHECK (status IN (N'active', N'inactive')),
+                     CONSTRAINT CK_Products_status CHECK (status IN (N'active', N'inactive', N'Prominent')),
     created_at    DATETIME2(0)  NOT NULL CONSTRAINT DF_Products_created_at DEFAULT (SYSDATETIME()),
     updated_at    DATETIME2(0)  NOT NULL CONSTRAINT DF_Products_updated_at DEFAULT (SYSDATETIME()),
 
