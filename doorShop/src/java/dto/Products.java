@@ -5,6 +5,7 @@
 package dto;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -22,14 +23,14 @@ public class Products {
     private String status;
     private Date created_at;
     private Date updated_at;
-    private ProductImages image;
+    private List<ProductImages> images;
 
-    public ProductImages getImage() {
-        return image;
+    public List<ProductImages> getImages() {
+        return images;
     }
 
-    public void setImage(ProductImages image) {
-        this.image = image;
+    public void setImages(List<ProductImages> images) {
+        this.images = images;
     }
 
     public Products() {
