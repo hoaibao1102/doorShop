@@ -21,8 +21,6 @@ import java.io.File;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import utils.AuthUtils;
 
 /**
  *
@@ -114,36 +112,29 @@ public class ProductController extends HttpServlet {
         String keyword = request.getParameter("keyword");
         List<Products> list;
 
-        System.out.println(">>> Keyword nhận từ request: " + keyword);  // debug
-
         if (keyword != null && !keyword.trim().isEmpty()) {
             list = productsdao.getByName(keyword.trim());
-
             if (list == null || list.isEmpty()) {
                 checkError = "No products found with name: " + keyword;
             } else {
-                // Lấy ảnh cho từng sản phẩm
+                // Lấy danh sách ảnh cho từng sản phẩm
                 for (Products p : list) {
-                    ProductImages img = productImagesDAO.getByProductId(p.getProduct_id());
-                    p.setImage(img); // giả sử Products có field image + setter
+                    List<ProductImages> imgs = productImagesDAO.getListByProductId(p.getProduct_id());
+                    p.setImages(imgs); // Products giờ có field List<ProductImages> images + setter
                 }
             }
-
-            request.setAttribute("list", list);
         } else {
             list = productsdao.getAll();
-
-            // cũng lấy ảnh cho tất cả sản phẩm
+            // cũng lấy danh sách ảnh cho tất cả sản phẩm
             for (Products p : list) {
-                ProductImages img = productImagesDAO.getByProductId(p.getProduct_id());
-                p.setImage(img);
+                List<ProductImages> imgs = productImagesDAO.getListByProductId(p.getProduct_id());
+                p.setImages(imgs);
             }
         }
 
         request.setAttribute("keyword", keyword);
         request.setAttribute("list", list);
         request.setAttribute("checkError", checkError);
-
         return "welcome.jsp";
     }
 

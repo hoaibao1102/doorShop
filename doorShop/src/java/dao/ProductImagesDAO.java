@@ -192,4 +192,26 @@ public class ProductImagesDAO implements IDAO<ProductImages, Integer> {
         }
         return generatedId;
     }
+
+    public List<ProductImages> getListByProductId(int productId) {
+        List<ProductImages> list = new ArrayList<>();
+        Connection c = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM ProductImages WHERE product_id = ? AND status = '1' ORDER BY created_at ASC";
+        try {
+            c = DBUtils.getConnection();
+            st = c.prepareStatement(sql);
+            st.setInt(1, productId);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(map(rs));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            close(c, st, rs);
+        }
+        return list;
+    }
 }
