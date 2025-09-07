@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="dto.Products, java.util.List, dto.ProductImages" %>
+<!DOCTYPE html>
 <html>
     <head>
         <title>Product Management</title>
@@ -59,7 +60,9 @@
 
                 <div class="mb-3">
                     <label class="form-label">Specification (HTML)</label>
-                    <textarea name="spec_html" class="form-control" rows="5"><%= (product != null) ? product.getSpec_html() : "" %></textarea>
+                    <textarea id="editor" name="spec_html" class="form-control" rows="10">
+                        <%= (product != null) ? product.getSpec_html() : "" %>
+                    </textarea>
                 </div>
 
                 <div class="mb-3">
@@ -106,5 +109,21 @@
                 <a href="welcome.jsp" class="btn btn-secondary">Back to List</a>
             </form>
         </div>
+        <!-- TinyMCE -->
+        <script src="https://cdn.tiny.cloud/1/9q1kybnxbgq2f5l3c8palpboawfgsnqsdd53b7gk5ny3dh19/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+        <script>
+            tinymce.init({
+                selector: '#editor',
+                height: 400,
+                plugins: 'image link lists table code',
+                toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | ' +
+                        'bullist numlist | link image | table | code',
+                menubar: 'file edit view insert format tools table help',
+                automatic_uploads: true,
+                images_upload_url: '<%= request.getContextPath() %>/UploadImageServlet',
+                images_upload_credentials: true,
+                convert_urls: false
+            });
+        </script>
     </body>
 </html>
