@@ -115,14 +115,50 @@
             tinymce.init({
                 selector: '#editor',
                 height: 400,
-                plugins: 'image link lists table code',
+                plugins: 'image link lists table code media',
                 toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | ' +
-                        'bullist numlist | link image | table | code',
+                        'bullist numlist | link image media | table | code',
                 menubar: 'file edit view insert format tools table help',
+
                 automatic_uploads: true,
-                images_upload_url: '<%= request.getContextPath() %>/UploadImageServlet',
-                images_upload_credentials: true,
-                convert_urls: false
+
+                // Cho phép nhiều loại file picker
+                file_picker_types: 'file image media',
+
+                // Callback xử lý upload
+                file_picker_callback: function (callback, value, meta) {
+                    let input = document.createElement('input');
+                    input.setAttribute('type', 'file');
+
+                    if (meta.filetype === 'image') {
+                        input.setAttribute('accept', 'image/*');
+                    } else if (meta.filetype === 'media') {
+                        input.setAttribute('accept', 'video/mp4');
+                    }
+
+                    input.onchange = function () {
+                        let file = this.files[0];
+                        let formData = new FormData();
+                        formData.append("file", file);
+
+                        // Upload ảnh hoặc video
+                        let uploadUrl = '<%= request.getContextPath() %>/UploadImageController';
+                        if (meta.filetype === 'media') {
+                            uploadUrl = '<%= request.getContextPath() %>/UploadVideoController';
+                        }
+
+                        fetch(uploadUrl, {
+                            method: 'POST',
+                            body: formData
+                        })
+                                .then(response => response.json())
+                                .then(json => {
+                                    callback(json.location);
+                                });
+                    };
+
+                    input.click();
+                }
             });
         </script>
     </body>
