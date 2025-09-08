@@ -6,13 +6,13 @@ import jakarta.servlet.*;
 import jakarta.servlet.annotation.*;
 import jakarta.servlet.http.*;
 
-@WebServlet("/UploadImageServlet")
+@WebServlet("/UploadImageController")
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024, // 1MB
         maxFileSize = 1024 * 1024 * 5, // 5MB
         maxRequestSize = 1024 * 1024 * 20 // 20MB
 )
-public class UploadImageServlet extends HttpServlet {
+public class UploadImageController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -22,7 +22,7 @@ public class UploadImageServlet extends HttpServlet {
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 
         // Thư mục lưu file (trong webapp/uploads)
-        String uploadDir = getServletContext().getRealPath("/uploads");
+        String uploadDir = getServletContext().getRealPath("/uploads/images");
         File uploadDirFile = new File(uploadDir);
         if (!uploadDirFile.exists()) {
             uploadDirFile.mkdirs();
@@ -34,7 +34,7 @@ public class UploadImageServlet extends HttpServlet {
 
         // Trả JSON cho TinyMCE
         response.setContentType("application/json");
-        String fileUrl = request.getContextPath() + "/uploads/" + fileName;
+        String fileUrl = request.getContextPath() + "/uploads/images/" + fileName;
         response.getWriter().write("{\"location\": \"" + fileUrl + "\"}");
     }
 }

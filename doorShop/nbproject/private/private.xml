@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/PRJ301/Felance/door/doorShop/doorShop/web/index.html</file>
             <file>file:/D:/PRJ301/Felance/door/doorShop/doorShop/web/productsUpdate.jsp</file>
-            <file>file:/D:/PRJ301/Felance/door/doorShop/doorShop/src/java/controller/UploadImageServlet.java</file>
+            <file>file:/D:/PRJ301/Felance/door/doorShop/doorShop/src/java/controller/UploadVideoController.java</file>
             <file>file:/D:/PRJ301/Felance/door/doorShop/doorShop/web/welcome.jsp</file>
-            <file>file:/D:/PRJ301/Felance/door/doorShop/doorShop/src/java/controller/UserController.java</file>
+            <file>file:/D:/PRJ301/Felance/door/doorShop/doorShop/src/java/controller/UploadImageController.java</file>
         </group>
     </open-files>
 </project-private>
