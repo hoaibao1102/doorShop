@@ -21,7 +21,7 @@ public class BrandsDAO implements IDAO<Brands, Integer> {
     private static final String GET_BY_ID = "SELECT * FROM dbo.Brands WHERE brand_id = ?";
     private static final String GET_BY_NAME = "SELECT * FROM dbo.Brands WHERE brand_name LIKE ?";
     private static final String CREATE
-            = "INSERT INTO dbo.Brands (category_id, brand_name, description) VALUES (?, ?, ?)";
+            = "INSERT INTO dbo.Brands (category_id, brand_name, description, status) VALUES (?, ?, ?, ?)";
 
     @Override
     public boolean create(Brands e) {
@@ -33,6 +33,7 @@ public class BrandsDAO implements IDAO<Brands, Integer> {
             st.setInt(1, e.getCategory_id());
             st.setString(2, e.getBrand_name());
             st.setString(3, e.getDescription());
+            st.setString(4, e.getStatus());
             return st.executeUpdate() > 0;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -112,6 +113,7 @@ public class BrandsDAO implements IDAO<Brands, Integer> {
         b.setCategory_id(rs.getInt("category_id"));
         b.setBrand_name(rs.getString("brand_name"));
         b.setDescription(rs.getString("description"));
+        b.setStatus(rs.getString("status"));
         return b;
     }
 
