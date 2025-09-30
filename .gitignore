@@ -1,2 +1,34 @@
+# ==========================================
+# Java Web + NetBeans + Ant/Maven Git Ignore
+# ==========================================
+
+# === NetBeans generated files ===
+/doorShop/nbproject/private/
+/doorShop/nbproject/project.properties
+/doorShop/nbproject/Makefile-*.mk
+/doorShop/nbproject/Package-*.bash
+
+# === Build artifacts ===
 /doorShop/build/
 /doorShop/dist/
+/doorShop/nbbuild/
+/doorShop/nbdist/
+
+# === IDE-specific ===
+*.iml
+.idea/
+*.ipr
+*.iws
+
+# === Maven files ===
+/doorShop/target/
+/doorShop/pom.xml.tag
+/doorShop/pom.xml.releaseBackup
+/doorShop/pom.xml.versionsBackup
+/doorShop/pom.xml.next
+/doorShop/release.properties
+/doorShop/dependency-reduced-pom.xml
+/doorShop/buildNumber.properties
+/doorShop/.mvn/timing.properties
+/doorShop/.mvn/wrapper/maven-wrapper.jar
+/doorShop_1/nbproject/private/

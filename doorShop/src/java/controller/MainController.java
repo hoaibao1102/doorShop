@@ -2,12 +2,18 @@ package controller;
 
 import java.io.IOException;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "MainController", urlPatterns = {"", "/MainController", "/mc"})
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+        maxFileSize = 1024 * 1024 * 10, // 10MB
+        maxRequestSize = 1024 * 1024 * 50 // 50MB
+)
 public class MainController extends HttpServlet {
 
     private static final String WELCOME = "login.jsp";
@@ -76,7 +82,9 @@ public class MainController extends HttpServlet {
     }
 
     private boolean isProductAction(String action) {
-        return "searchProduct".equals(action);
+        return "searchProduct".equals(action)
+                || "showAddProductForm".equals(action)
+                || "addProduct".equals(action);
     }
 
 }

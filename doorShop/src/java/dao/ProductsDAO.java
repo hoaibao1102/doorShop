@@ -20,8 +20,10 @@ public class ProductsDAO implements IDAO<Products, Integer> {
     private static final String GET_BY_ID = "SELECT * FROM dbo.Products WHERE product_id = ?";
     private static final String GET_BY_NAME = "SELECT * FROM dbo.Products WHERE name LIKE ?";
     private static final String CREATE
+
             = "INSERT INTO dbo.Products (category_id, name, sku, price, short_desc, spec_html, main_image, status) "
             + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)"; 
+
 
     @Override
     public boolean create(Products e) {
@@ -38,6 +40,7 @@ public class ProductsDAO implements IDAO<Products, Integer> {
             st.setString(6, e.getSpec_html());
             st.setString(7, e.getMain_image());
             st.setString(8, e.getStatus());
+
             return st.executeUpdate() > 0;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -159,4 +162,6 @@ public class ProductsDAO implements IDAO<Products, Integer> {
         } catch (Exception ignore) {
         }
     }
+
+
 }
