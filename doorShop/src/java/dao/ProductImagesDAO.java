@@ -9,19 +9,18 @@ package dao;
  * @author MSI PC
  */
 import dto.ProductImages;
-import utils.DBUtils;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import utils.DBUtils;
 
 public class ProductImagesDAO implements IDAO<ProductImages, Integer> {
 
     private static final String GET_ALL = "SELECT * FROM dbo.ProductImages";
-    private static final String GET_BY_ID = "SELECT * FROM dbo.ProductImages WHERE image_id = ?";
-    private static final String GET_BY_NAME = "SELECT * FROM dbo.ProductImages WHERE image_url LIKE ?";
+    private static final String GET_BY_ID = "SELECT * FROM dbo.ProductImages WHERE id = ?";
+    private static final String GET_BY_NAME = "SELECT * FROM dbo.ProductImages WHERE product_id = ?";
     private static final String CREATE
-            = "INSERT INTO dbo.ProductImages (product_id, image_url, caption, status) VALUES (?, ?, ?, ?)";
+            = "INSERT INTO dbo.ProductImages (product_id, media_id, sort_order) VALUES (?, ?, ?)";
 
     @Override
     public boolean create(ProductImages e) {
@@ -31,9 +30,8 @@ public class ProductImagesDAO implements IDAO<ProductImages, Integer> {
             c = DBUtils.getConnection();
             st = c.prepareStatement(CREATE);
             st.setInt(1, e.getProduct_id());
-            st.setString(2, e.getImage_url());
-            st.setString(3, e.getCaption());
-            st.setInt(4, e.getStatus());
+            st.setInt(2, e.getMedia_id());
+            st.setInt(3, e.getSort_order());
 
             return st.executeUpdate() > 0;
         } catch (Exception ex) {
@@ -74,7 +72,7 @@ public class ProductImagesDAO implements IDAO<ProductImages, Integer> {
         try {
             c = DBUtils.getConnection();
             st = c.prepareStatement(GET_BY_NAME);
-            st.setString(1, "%" + name + "%");
+            st.setInt(1, Integer.parseInt(name));
             rs = st.executeQuery();
             while (rs.next()) {
                 list.add(map(rs));
@@ -110,16 +108,10 @@ public class ProductImagesDAO implements IDAO<ProductImages, Integer> {
 
     private ProductImages map(ResultSet rs) throws SQLException {
         ProductImages pi = new ProductImages();
-        pi.setImage_id(rs.getInt("image_id"));
+        pi.setId(rs.getInt("id"));
         pi.setProduct_id(rs.getInt("product_id"));
-        pi.setImage_url(rs.getString("image_url"));
-        pi.setStatus(rs.getInt("status"));
-
-        // created_at
-        Timestamp createdTs = rs.getTimestamp("created_at");
-        if (createdTs != null) {
-            pi.setCreated_at(new java.util.Date(createdTs.getTime()));
-        }
+        pi.setMedia_id(rs.getInt("media_id"));
+        pi.setSort_order(rs.getInt("sort_order"));
 
         return pi;
     }
@@ -151,7 +143,7 @@ public class ProductImagesDAO implements IDAO<ProductImages, Integer> {
         PreparedStatement st = null;
         ResultSet rs = null;
 
-        String sql = "SELECT TOP 1 * FROM ProductImages WHERE product_id = ? AND status = '1' ORDER BY created_at ASC";
+        String sql = "SELECT TOP 1 * FROM ProductImages WHERE product_id = ? ORDER BY sort_order ASC";
 
         try {
             c = DBUtils.getConnection();

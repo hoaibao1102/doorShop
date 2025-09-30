@@ -9,11 +9,10 @@ package dao;
  * @author MSI PC
  */
 import dto.ContactMessages;
-import utils.DBUtils;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import utils.DBUtils;
 
 public class ContactMessagesDAO implements IDAO<ContactMessages, Integer> {
 
@@ -21,7 +20,7 @@ public class ContactMessagesDAO implements IDAO<ContactMessages, Integer> {
     private static final String GET_BY_ID = "SELECT * FROM dbo.ContactMessages WHERE message_id = ?";
     private static final String GET_BY_NAME = "SELECT * FROM dbo.ContactMessages WHERE name LIKE ?";
     private static final String CREATE
-            = "INSERT INTO dbo.ContactMessages (name, email, phone, message) VALUES (?, ?, ?, ?)";
+            = "INSERT INTO dbo.ContactMessages (name, email, phone, subject, message, status) VALUES (?, ?, ?, ?, ?, ?)";
 
     @Override
     public boolean create(ContactMessages e) {
@@ -33,7 +32,9 @@ public class ContactMessagesDAO implements IDAO<ContactMessages, Integer> {
             st.setString(1, e.getName());
             st.setString(2, e.getEmail());
             st.setString(3, e.getPhone());
-            st.setString(4, e.getMessage());
+            st.setString(4, e.getSubject());
+            st.setString(5, e.getMessage());
+            st.setString(6, e.getStatus());
             return st.executeUpdate() > 0;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -113,7 +114,9 @@ public class ContactMessagesDAO implements IDAO<ContactMessages, Integer> {
         cm.setName(rs.getString("name"));
         cm.setEmail(rs.getString("email"));
         cm.setPhone(rs.getString("phone"));
+        cm.setSubject(rs.getString("subject"));
         cm.setMessage(rs.getString("message"));
+        cm.setStatus(rs.getString("status"));
 
         Timestamp createdTs = rs.getTimestamp("created_at");
         if (createdTs != null) {

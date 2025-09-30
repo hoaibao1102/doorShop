@@ -8,44 +8,34 @@ package dao;
  *
  * @author MSI PC
  */
-import dto.Discounts;
+import dto.Media;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import utils.DBUtils;
 
-public class DiscountsDAO implements IDAO<Discounts, Integer> {
+public class MediaDAO implements IDAO<Media, Integer> {
 
-    private static final String GET_ALL = "SELECT * FROM dbo.Discounts";
-    private static final String GET_BY_ID = "SELECT * FROM dbo.Discounts WHERE discount_id = ?";
-    private static final String GET_BY_NAME = "SELECT * FROM dbo.Discounts WHERE product_id = ?"; // thay product_id thay cho "name"
+    private static final String GET_ALL = "SELECT * FROM dbo.Media";
+    private static final String GET_BY_ID = "SELECT * FROM dbo.Media WHERE media_id = ?";
+    private static final String GET_BY_NAME = "SELECT * FROM dbo.Media WHERE file_name LIKE ?";
     private static final String CREATE
-            = "INSERT INTO dbo.Discounts (product_id, discount_percent, start_date, end_date, status) VALUES (?, ?, ?, ?, ?)";
+            = "INSERT INTO dbo.Media (file_name, file_path, uploaded_by) VALUES (?, ?, ?)";
 
     @Override
-    public boolean create(Discounts e) {
+    public boolean create(Media e) {
         Connection c = null;
         PreparedStatement st = null;
         try {
             c = DBUtils.getConnection();
             st = c.prepareStatement(CREATE);
-            st.setInt(1, e.getProduct_id());
-            st.setInt(2, e.getDiscount_percent());
-
-            if (e.getStart_date() != null) {
-                st.setDate(3, e.getStart_date());
+            st.setString(1, e.getFile_name());
+            st.setString(2, e.getFile_path());
+            if (e.getUploaded_by() != null) {
+                st.setInt(3, e.getUploaded_by());
             } else {
-                st.setNull(3, Types.DATE);
+                st.setNull(3, Types.INTEGER);
             }
-
-            if (e.getEnd_date() != null) {
-                st.setDate(4, e.getEnd_date());
-            } else {
-                st.setNull(4, Types.DATE);
-            }
-
-            st.setString(5, e.getStatus());
-
             return st.executeUpdate() > 0;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -56,7 +46,7 @@ public class DiscountsDAO implements IDAO<Discounts, Integer> {
     }
 
     @Override
-    public Discounts getById(Integer id) {
+    public Media getById(Integer id) {
         Connection c = null;
         PreparedStatement st = null;
         ResultSet rs = null;
@@ -76,17 +66,16 @@ public class DiscountsDAO implements IDAO<Discounts, Integer> {
         return null;
     }
 
-    // ở đây getByName không hợp lý, mình đổi thành getByProductId
     @Override
-    public List<Discounts> getByName(String productId) {
-        List<Discounts> list = new ArrayList<>();
+    public List<Media> getByName(String name) {
+        List<Media> list = new ArrayList<>();
         Connection c = null;
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
             c = DBUtils.getConnection();
             st = c.prepareStatement(GET_BY_NAME);
-            st.setInt(1, Integer.parseInt(productId));
+            st.setString(1, "%" + name + "%");
             rs = st.executeQuery();
             while (rs.next()) {
                 list.add(map(rs));
@@ -100,8 +89,8 @@ public class DiscountsDAO implements IDAO<Discounts, Integer> {
     }
 
     @Override
-    public List<Discounts> getAll() {
-        List<Discounts> list = new ArrayList<>();
+    public List<Media> getAll() {
+        List<Media> list = new ArrayList<>();
         Connection c = null;
         PreparedStatement st = null;
         ResultSet rs = null;
@@ -120,24 +109,23 @@ public class DiscountsDAO implements IDAO<Discounts, Integer> {
         return list;
     }
 
-    private Discounts map(ResultSet rs) throws SQLException {
-        Discounts d = new Discounts();
-        d.setDiscount_id(rs.getInt("discount_id"));
-        d.setProduct_id(rs.getInt("product_id"));
-        d.setDiscount_percent(rs.getInt("discount_percent"));
+    private Media map(ResultSet rs) throws SQLException {
+        Media m = new Media();
+        m.setMedia_id(rs.getInt("media_id"));
+        m.setFile_name(rs.getString("file_name"));
+        m.setFile_path(rs.getString("file_path"));
 
-        java.sql.Date start = rs.getDate("start_date");
-        if (start != null) {
-            d.setStart_date(start);
+        Timestamp uploadedTs = rs.getTimestamp("uploaded_at");
+        if (uploadedTs != null) {
+            m.setUploaded_at(new java.util.Date(uploadedTs.getTime()));
         }
 
-        java.sql.Date end = rs.getDate("end_date");
-        if (end != null) {
-            d.setEnd_date(end);
+        int uploadedByValue = rs.getInt("uploaded_by");
+        if (!rs.wasNull()) {
+            m.setUploaded_by(uploadedByValue);
         }
 
-        d.setStatus(rs.getString("status"));
-        return d;
+        return m;
     }
 
     private void close(Connection c, PreparedStatement st, ResultSet rs) {

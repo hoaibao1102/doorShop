@@ -54,43 +54,7 @@
         <div class="container my-4">
             <div class="row g-3">
 
-                <!-- Sidebar Sản phẩm nổi bật -->
-                <aside class="col-lg-2 col-md-3 col-12">
-                    <div class="border rounded p-2 h-100">
-                        <h5 class="text-center fw-bold text-uppercase text-primary mb-3">Sản phẩm nổi bật</h5>
-
-                        <div class="list-group list-group-flush small mb-3" style="max-height:70vh; overflow:auto;">
-                            <!-- Item 1 -->
-                            <div class="list-group-item d-flex gap-2 align-items-center">
-                                <img src="assets/demo/door1.jpg" class="sb-thumb" alt="">
-                                <div>
-                                    <div>Cửa composite VD-C211</div>
-                                    <div class="sb-price">4.650.000 đ</div>
-                                </div>
-                            </div>
-                            <!-- Item 2 -->
-                            <div class="list-group-item d-flex gap-2 align-items-center">
-                                <img src="assets/demo/door2.jpg" class="sb-thumb" alt="">
-                                <div>
-                                    <div>Cửa Gỗ CarbonVD2710-7</div>
-                                    <div class="sb-price">3.580.000 đ</div>
-                                </div>
-                            </div>
-                            <!-- Item 3 -->
-                            <div class="list-group-item d-flex gap-2 align-items-center">
-                                <img src="assets/demo/door3.jpg" class="sb-thumb" alt="">
-                                <div>
-                                    <div>Cửa nhựa ABS Hàn Quốc</div>
-                                    <div class="sb-price">3.150.000 đ</div>
-                                </div>
-                            </div>
-                            <!-- Thêm nhiều sản phẩm tùy ý -->
-                        </div>
-
-                        <a href="#" class="btn btn-outline-primary w-100">Xem thêm</a>
-                    </div>
-                </aside>
-
+                
                 <!-- Content chính -->
                 <section class="col-lg-10 col-md-9 col-12">
 

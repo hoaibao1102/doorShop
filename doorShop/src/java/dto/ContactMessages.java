@@ -15,18 +15,23 @@ public class ContactMessages {
     private String name;
     private String email;
     private String phone;
+    private String subject;
     private String message;
+    private String status;
     private Date created_at;
 
     public ContactMessages() {
     }
 
-    public ContactMessages(int message_id, String name, String email, String phone, String message, Date created_at) {
+    public ContactMessages(int message_id, String name, String email, String phone, String subject, 
+                          String message, String status, Date created_at) {
         this.message_id = message_id;
         this.name = name;
         this.email = email;
         this.phone = phone;
+        this.subject = subject;
         this.message = message;
+        this.status = status;
         this.created_at = created_at;
     }
 
@@ -62,12 +67,28 @@ public class ContactMessages {
         this.phone = phone;
     }
 
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
     public String getMessage() {
         return message;
     }
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Date getCreated_at() {
@@ -77,6 +98,5 @@ public class ContactMessages {
     public void setCreated_at(Date created_at) {
         this.created_at = created_at;
     }
-    
-    
+
 }

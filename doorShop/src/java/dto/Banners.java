@@ -4,26 +4,24 @@
  */
 package dto;
 
-import java.util.Date;
-
 /**
  *
  * @author MSI PC
  */
 public class Banners {
-     private int banner_id;
-    private String image_url;
-    private int is_active;
-    private Date created_at;
+    private int banner_id;
+    private String title;
+    private int media_id;
+    private String status;
 
     public Banners() {
     }
 
-    public Banners(int banner_id, String image_url, int is_active, Date created_at) {
+    public Banners(int banner_id, String title, int media_id, String status) {
         this.banner_id = banner_id;
-        this.image_url = image_url;
-        this.is_active = is_active;
-        this.created_at = created_at;
+        this.title = title;
+        this.media_id = media_id;
+        this.status = status;
     }
 
     public int getBanner_id() {
@@ -34,29 +32,28 @@ public class Banners {
         this.banner_id = banner_id;
     }
 
-    public String getImage_url() {
-        return image_url;
+    public String getTitle() {
+        return title;
     }
 
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public int getIs_active() {
-        return is_active;
+    public int getMedia_id() {
+        return media_id;
     }
 
-    public void setIs_active(int is_active) {
-        this.is_active = is_active;
+    public void setMedia_id(int media_id) {
+        this.media_id = media_id;
     }
 
-    public Date getCreated_at() {
-        return created_at;
+    public String getStatus() {
+        return status;
     }
 
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
+    public void setStatus(String status) {
+        this.status = status;
     }
-    
-    
+
 }

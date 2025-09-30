@@ -4,7 +4,7 @@
  */
 package dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -13,15 +13,15 @@ import java.util.Date;
 public class Discounts {
     private int discount_id;
     private int product_id;
-    private double discount_percent;
+    private int discount_percent;
     private Date start_date;
     private Date end_date;
-    private int status;
+    private String status;
 
     public Discounts() {
     }
 
-    public Discounts(int discount_id, int product_id, double discount_percent, Date start_date, Date end_date, int status) {
+    public Discounts(int discount_id, int product_id, int discount_percent, Date start_date, Date end_date, String status) {
         this.discount_id = discount_id;
         this.product_id = product_id;
         this.discount_percent = discount_percent;
@@ -46,11 +46,11 @@ public class Discounts {
         this.product_id = product_id;
     }
 
-    public double getDiscount_percent() {
+    public int getDiscount_percent() {
         return discount_percent;
     }
 
-    public void setDiscount_percent(double discount_percent) {
+    public void setDiscount_percent(int discount_percent) {
         this.discount_percent = discount_percent;
     }
 
@@ -70,13 +70,12 @@ public class Discounts {
         this.end_date = end_date;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
-    
 
 }

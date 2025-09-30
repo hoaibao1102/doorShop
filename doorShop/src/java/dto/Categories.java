@@ -12,14 +12,16 @@ public class Categories {
     private int category_id;
     private String category_name;
     private String description;
+    private String status;
 
     public Categories() {
     }
 
-    public Categories(int category_id, String category_name, String description) {
+    public Categories(int category_id, String category_name, String description, String status) {
         this.category_id = category_id;
         this.category_name = category_name;
         this.description = description;
+        this.status = status;
     }
 
     public int getCategory_id() {
@@ -45,6 +47,12 @@ public class Categories {
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

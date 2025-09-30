@@ -5,11 +5,10 @@
 package dao;
 
 import dto.Categories;
-import utils.DBUtils;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import utils.DBUtils;
 
 /**
  *
@@ -21,7 +20,7 @@ public class CategoriesDAO implements IDAO<Categories, Integer> {
     private static final String GET_BY_ID = "SELECT * FROM dbo.Categories WHERE category_id = ?";
     private static final String GET_BY_NAME = "SELECT * FROM dbo.Categories WHERE category_name LIKE ?";
     private static final String CREATE
-            = "INSERT INTO dbo.Categories (category_name, description) VALUES (?, ?)";
+            = "INSERT INTO dbo.Categories (category_name, description, status) VALUES (?, ?, ?)";
 
     @Override
     public boolean create(Categories e) {
@@ -32,6 +31,7 @@ public class CategoriesDAO implements IDAO<Categories, Integer> {
             st = c.prepareStatement(CREATE);
             st.setString(1, e.getCategory_name());
             st.setString(2, e.getDescription());
+            st.setString(3, e.getStatus());
             return st.executeUpdate() > 0;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -110,6 +110,7 @@ public class CategoriesDAO implements IDAO<Categories, Integer> {
         c.setCategory_id(rs.getInt("category_id"));
         c.setCategory_name(rs.getString("category_name"));
         c.setDescription(rs.getString("description"));
+        c.setStatus(rs.getString("status"));
         return c;
     }
 

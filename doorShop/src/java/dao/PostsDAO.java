@@ -9,19 +9,18 @@ package dao;
  * @author MSI PC
  */
 import dto.Posts;
-import utils.DBUtils;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import utils.DBUtils;
 
 public class PostsDAO implements IDAO<Posts, Integer> {
 
     private static final String GET_ALL = "SELECT * FROM dbo.Posts";
-    private static final String GET_BY_ID = "SELECT * FROM dbo.Posts WHERE id = ?";
+    private static final String GET_BY_ID = "SELECT * FROM dbo.Posts WHERE post_id = ?";
     private static final String GET_BY_NAME = "SELECT * FROM dbo.Posts WHERE title LIKE ?";
     private static final String CREATE
-            = "INSERT INTO dbo.Posts (author_id, title, main_image, content, caption, published_at, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            = "INSERT INTO dbo.Posts (title, summary, content, media_id, published_at, author_id, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     @Override
     public boolean create(Posts e) {
@@ -30,19 +29,24 @@ public class PostsDAO implements IDAO<Posts, Integer> {
         try {
             c = DBUtils.getConnection();
             st = c.prepareStatement(CREATE);
-            st.setInt(1, e.getAuthor_id());
-            st.setString(2, e.getTitle());
-            st.setString(3, e.getMain_image());
-            st.setString(4, e.getContent());
-            st.setString(5, e.getCaption());
-
-            if (e.getPublished_at() != null) {
-                st.setTimestamp(6, new Timestamp(e.getPublished_at().getTime()));
+            st.setString(1, e.getTitle());
+            st.setString(2, e.getSummary());
+            st.setString(3, e.getContent());
+            
+            if (e.getMedia_id() != null) {
+                st.setInt(4, e.getMedia_id());
             } else {
-                st.setNull(6, Types.TIMESTAMP);
+                st.setNull(4, Types.INTEGER);
             }
-
-            st.setInt(7, e.getStatus());
+            
+            if (e.getPublished_at() != null) {
+                st.setTimestamp(5, new Timestamp(e.getPublished_at().getTime()));
+            } else {
+                st.setNull(5, Types.TIMESTAMP);
+            }
+            
+            st.setInt(6, e.getAuthor_id());
+            st.setString(7, e.getStatus());
 
             return st.executeUpdate() > 0;
         } catch (Exception ex) {
@@ -119,17 +123,23 @@ public class PostsDAO implements IDAO<Posts, Integer> {
 
     private Posts map(ResultSet rs) throws SQLException {
         Posts p = new Posts();
-        p.setId(rs.getInt("id"));
-        p.setAuthor_id(rs.getInt("author_id"));
+        p.setPost_id(rs.getInt("post_id"));
         p.setTitle(rs.getString("title"));
-        p.setMain_image(rs.getString("main_image"));
+        p.setSummary(rs.getString("summary"));
         p.setContent(rs.getString("content"));
-        p.setCaption(rs.getString("caption"));
-
+        
+        int mediaIdValue = rs.getInt("media_id");
+        if (!rs.wasNull()) {
+            p.setMedia_id(mediaIdValue);
+        }
+        
         Timestamp publishedTs = rs.getTimestamp("published_at");
         if (publishedTs != null) {
             p.setPublished_at(new java.util.Date(publishedTs.getTime()));
         }
+        
+        p.setAuthor_id(rs.getInt("author_id"));
+        p.setStatus(rs.getString("status"));
 
         Timestamp createdTs = rs.getTimestamp("created_at");
         if (createdTs != null) {
@@ -140,8 +150,6 @@ public class PostsDAO implements IDAO<Posts, Integer> {
         if (updatedTs != null) {
             p.setUpdated_at(new java.util.Date(updatedTs.getTime()));
         }
-
-        p.setStatus(rs.getInt("status"));
 
         return p;
     }

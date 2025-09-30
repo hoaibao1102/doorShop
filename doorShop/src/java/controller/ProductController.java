@@ -99,33 +99,33 @@ public class ProductController extends HttpServlet {
 
         System.out.println(">>> Keyword nhận từ request: " + keyword);  // debug
 
-        if (keyword != null && !keyword.trim().isEmpty()) {
-            list = productsdao.getByName(keyword.trim());
-
-            if (list == null || list.isEmpty()) {
-                checkError = "No products found with name: " + keyword;
-            } else {
-                // Lấy ảnh cho từng sản phẩm
-                for (Products p : list) {
-                    ProductImages img = productImagesDAO.getByProductId(p.getProduct_id());
-                    p.setImage(img); // giả sử Products có field image + setter
-                }
-            }
-
-            request.setAttribute("list", list);
-        } else {
-            list = productsdao.getAll();
-
-            // cũng lấy ảnh cho tất cả sản phẩm
-            for (Products p : list) {
-                ProductImages img = productImagesDAO.getByProductId(p.getProduct_id());
-                p.setImage(img);
-            }
-        }
-
-        request.setAttribute("keyword", keyword);
-        request.setAttribute("list", list);
-        request.setAttribute("checkError", checkError);
+//        if (keyword != null && !keyword.trim().isEmpty()) {
+//            list = productsdao.getByName(keyword.trim());
+//
+//            if (list == null || list.isEmpty()) {
+//                checkError = "No products found with name: " + keyword;
+//            } else {
+//                // Lấy ảnh cho từng sản phẩm
+//                for (Products p : list) {
+//                    ProductImages img = productImagesDAO.getByProductId(p.getProduct_id());
+//                    p.setImage(img); // giả sử Products có field image + setter
+//                }
+//            }
+//
+//            request.setAttribute("list", list);
+//        } else {
+//            list = productsdao.getAll();
+//
+//            // cũng lấy ảnh cho tất cả sản phẩm
+//            for (Products p : list) {
+//                ProductImages img = productImagesDAO.getByProductId(p.getProduct_id());
+//                p.setImage(img);
+//            }
+//        }
+//
+//        request.setAttribute("keyword", keyword);
+//        request.setAttribute("list", list);
+//        request.setAttribute("checkError", checkError);
 
         return "welcome.jsp";
     }

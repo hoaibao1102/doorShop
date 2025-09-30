@@ -14,35 +14,29 @@ public class Products {
 
     private int product_id;
     private int category_id;
-    private int brand_id;
     private String name;
+    private String sku;
     private double price;
+    private String short_desc;
     private String spec_html;
-    private int main_image_id;
+    private String main_image;
     private String status;
     private Date created_at;
     private Date updated_at;
-    private ProductImages image;
-
-    public ProductImages getImage() {
-        return image;
-    }
-
-    public void setImage(ProductImages image) {
-        this.image = image;
-    }
 
     public Products() {
     }
 
-    public Products(int product_id, int category_id, int brand_id, String name, double price, String spec_html, int main_image_id, String status, Date created_at, Date updated_at) {
+    public Products(int product_id, int category_id, String name,String sku, double price, String short_desc, 
+                   String spec_html, String main_image, String status, Date created_at, Date updated_at) {
+        this.sku = sku;
         this.product_id = product_id;
         this.category_id = category_id;
-        this.brand_id = brand_id;
         this.name = name;
         this.price = price;
+        this.short_desc = short_desc;
         this.spec_html = spec_html;
-        this.main_image_id = main_image_id;
+        this.main_image = main_image;
         this.status = status;
         this.created_at = created_at;
         this.updated_at = updated_at;
@@ -64,14 +58,6 @@ public class Products {
         this.category_id = category_id;
     }
 
-    public int getBrand_id() {
-        return brand_id;
-    }
-
-    public void setBrand_id(int brand_id) {
-        this.brand_id = brand_id;
-    }
-
     public String getName() {
         return name;
     }
@@ -88,6 +74,14 @@ public class Products {
         this.price = price;
     }
 
+    public String getShort_desc() {
+        return short_desc;
+    }
+
+    public void setShort_desc(String short_desc) {
+        this.short_desc = short_desc;
+    }
+
     public String getSpec_html() {
         return spec_html;
     }
@@ -96,12 +90,12 @@ public class Products {
         this.spec_html = spec_html;
     }
 
-    public int getMain_image_id() {
-        return main_image_id;
+    public String getMain_image() {
+        return main_image;
     }
 
-    public void setMain_image_id(int main_image_id) {
-        this.main_image_id = main_image_id;
+    public void setMain_image(String main_image) {
+        this.main_image = main_image;
     }
 
     public String getStatus() {
@@ -126,6 +120,14 @@ public class Products {
 
     public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
     }
 
 }

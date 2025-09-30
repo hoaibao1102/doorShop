@@ -4,8 +4,6 @@
  */
 package dto;
 
-import java.util.Date;
-
 /**
  *
  * @author MSI PC
@@ -15,21 +13,17 @@ public class Admin {
     private String username;
     private String password_hash;
     private String email;
-    private String full_name;
     private String phone;
-    private Date created_at;
 
     public Admin() {
     }
 
-    public Admin(int admin_id, String username, String password_hash, String email, String full_name, String phone, Date created_at) {
+    public Admin(int admin_id, String username, String password_hash, String email, String phone) {
         this.admin_id = admin_id;
         this.username = username;
         this.password_hash = password_hash;
         this.email = email;
-        this.full_name = full_name;
         this.phone = phone;
-        this.created_at = created_at;
     }
 
     public int getAdmin_id() {
@@ -64,14 +58,6 @@ public class Admin {
         this.email = email;
     }
 
-    public String getFull_name() {
-        return full_name;
-    }
-
-    public void setFull_name(String full_name) {
-        this.full_name = full_name;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -79,14 +65,4 @@ public class Admin {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    public Date getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
-    }
-    
-    
 }

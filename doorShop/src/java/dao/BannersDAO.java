@@ -5,11 +5,10 @@
 package dao;
 
 import dto.Banners;
-import utils.DBUtils;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import utils.DBUtils;
 
 /**
  *
@@ -19,9 +18,9 @@ public class BannersDAO implements IDAO<Banners, Integer> {
 
     private static final String GET_ALL = "SELECT * FROM dbo.Banners";
     private static final String GET_BY_ID = "SELECT * FROM dbo.Banners WHERE banner_id = ?";
-    private static final String GET_BY_NAME = "SELECT * FROM dbo.Banners WHERE image_url LIKE ?";
+    private static final String GET_BY_NAME = "SELECT * FROM dbo.Banners WHERE title LIKE ?";
     private static final String CREATE
-            = "INSERT INTO dbo.Banners (image_url, is_active) VALUES (?, ?)";
+            = "INSERT INTO dbo.Banners (title, media_id, status) VALUES (?, ?, ?)";
 
     @Override
     public boolean create(Banners e) {
@@ -30,8 +29,9 @@ public class BannersDAO implements IDAO<Banners, Integer> {
         try {
             c = DBUtils.getConnection();
             st = c.prepareStatement(CREATE);
-            st.setString(1, e.getImage_url());
-            st.setInt(2, e.getIs_active());
+            st.setString(1, e.getTitle());
+            st.setInt(2, e.getMedia_id());
+            st.setString(3, e.getStatus());
             return st.executeUpdate() > 0;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -108,13 +108,9 @@ public class BannersDAO implements IDAO<Banners, Integer> {
     private Banners map(ResultSet rs) throws SQLException {
         Banners b = new Banners();
         b.setBanner_id(rs.getInt("banner_id"));
-        b.setImage_url(rs.getString("image_url"));
-        b.setIs_active(rs.getInt("is_active"));
-
-        Timestamp createdTs = rs.getTimestamp("created_at");
-        if (createdTs != null) {
-            b.setCreated_at(new java.util.Date(createdTs.getTime()));
-        }
+        b.setTitle(rs.getString("title"));
+        b.setMedia_id(rs.getInt("media_id"));
+        b.setStatus(rs.getString("status"));
 
         return b;
     }
