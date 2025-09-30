@@ -143,7 +143,7 @@ public class ProductImagesDAO implements IDAO<ProductImages, Integer> {
         PreparedStatement st = null;
         ResultSet rs = null;
 
-        String sql = "SELECT TOP 1 * FROM ProductImages WHERE product_id = ? ORDER BY sort_order ASC";
+        String sql = "SELECT TOP 1 * FROM dbo.ProductImages WHERE product_id = ? ORDER BY sort_order ASC";
 
         try {
             c = DBUtils.getConnection();
@@ -165,18 +165,17 @@ public class ProductImagesDAO implements IDAO<ProductImages, Integer> {
 
     public int createAndReturnId(ProductImages e) {
         int generatedId = -1;
-        String sql = "INSERT INTO dbo.ProductImages (product_id, image_url, caption, status) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO dbo.ProductImages (product_id, media_id, sort_order) VALUES (?, ?, ?)";
         try ( Connection c = DBUtils.getConnection();  PreparedStatement st = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             st.setInt(1, e.getProduct_id());
-            st.setString(2, e.getImage_url());
-            st.setString(3, e.getCaption());
-            st.setInt(4, e.getStatus());
+            st.setInt(2, e.getMedia_id());
+            st.setInt(3, e.getSort_order());
             int rows = st.executeUpdate();
             if (rows > 0) {
                 ResultSet rs = st.getGeneratedKeys();
                 if (rs.next()) {
                     generatedId = rs.getInt(1);
-                    e.setImage_id(generatedId);
+                    e.setId(generatedId);
                 }
             }
         } catch (Exception ex) {
@@ -190,7 +189,7 @@ public class ProductImagesDAO implements IDAO<ProductImages, Integer> {
         Connection c = null;
         PreparedStatement st = null;
         ResultSet rs = null;
-        String sql = "SELECT * FROM ProductImages WHERE product_id = ? AND status = '1' ORDER BY created_at ASC";
+        String sql = "SELECT * FROM dbo.ProductImages WHERE product_id = ? ORDER BY sort_order ASC";
         try {
             c = DBUtils.getConnection();
             st = c.prepareStatement(sql);
@@ -198,6 +197,34 @@ public class ProductImagesDAO implements IDAO<ProductImages, Integer> {
             rs = st.executeQuery();
             while (rs.next()) {
                 list.add(map(rs));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            close(c, st, rs);
+        }
+        return list;
+    }
+
+    // Method để lấy ProductImages kèm thông tin Media
+    public List<ProductImages> getListByProductIdWithMedia(int productId) {
+        List<ProductImages> list = new ArrayList<>();
+        Connection c = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        String sql = "SELECT pi.*, m.file_name, m.file_path " +
+                    "FROM dbo.ProductImages pi " +
+                    "INNER JOIN dbo.Media m ON pi.media_id = m.media_id " +
+                    "WHERE pi.product_id = ? ORDER BY pi.sort_order ASC";
+        try {
+            c = DBUtils.getConnection();
+            st = c.prepareStatement(sql);
+            st.setInt(1, productId);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                ProductImages pi = map(rs);
+                // Có thể thêm thông tin media nếu cần
+                list.add(pi);
             }
         } catch (Exception ex) {
             ex.printStackTrace();

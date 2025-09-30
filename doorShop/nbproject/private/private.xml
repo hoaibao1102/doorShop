@@ -3,20 +3,23 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/D:/freelance/doorshop/doorShop/src/java/utils/DBUtils.java</file>
+            <file>file:/D:/freelance/doorshop/doorShop/src/java/dto/Categories.java</file>
+            <file>file:/D:/freelance/doorshop/doorShop/src/java/Controller/BannersController.java</file>
+            <file>file:/D:/freelance/doorshop/doorShop/src/java/Controller/AdminController.java</file>
+            <file>file:/D:/freelance/doorshop/doorShop/src/java/utils/AuthUtils.java</file>
+            <file>file:/D:/freelance/doorshop/doorShop/src/java/dao/ProductImagesDAO.java</file>
             <file>file:/D:/freelance/doorshop/doorShop/src/java/Controller/ProductImagesController.java</file>
             <file>file:/D:/freelance/doorshop/doorShop/src/java/dto/Products.java</file>
-            <file>file:/D:/freelance/doorshop/doorShop/src/java/Controller/MediaController.java</file>
+            <file>file:/D:/freelance/doorshop/doorShop/src/java/Controller/MainController.java</file>
+            <file>file:/D:/freelance/doorshop/doorShop/src/java/Controller/UserController.java</file>
             <file>file:/D:/freelance/doorshop/doorShop/src/java/Controller/ProductController.java</file>
+            <file>file:/D:/freelance/doorshop/doorShop/src/java/Controller/CategoriesController.java</file>
             <file>file:/D:/freelance/doorshop/doorShop/src/java/utils/PasswordUtils.java</file>
-=======
-            <file>file:/D:/PRJ301/Felance/door/doorShop/doorShop/web/index.html</file>
-            <file>file:/D:/PRJ301/Felance/door/doorShop/doorShop/web/productsUpdate.jsp</file>
-            <file>file:/D:/PRJ301/Felance/door/doorShop/doorShop/src/java/controller/UploadVideoController.java</file>
-            <file>file:/D:/PRJ301/Felance/door/doorShop/doorShop/web/welcome.jsp</file>
-            <file>file:/D:/PRJ301/Felance/door/doorShop/doorShop/src/java/controller/UploadImageController.java</file>
->>>>>>> 5331949555f832f93b3475836775dc8adbd96eda
+            <file>file:/D:/freelance/doorshop/doorShop/src/java/Controller/DiscountsController.java</file>
+            <file>file:/D:/freelance/doorshop/doorShop/src/java/utils/DBUtils.java</file>
+            <file>file:/D:/freelance/doorshop/doorShop/web/welcome.jsp</file>
+            <file>file:/D:/freelance/doorshop/doorShop/src/java/dto/ProductImages.java</file>
+            <file>file:/D:/freelance/doorshop/doorShop/src/java/Controller/MediaController.java</file>
         </group>
     </open-files>
 </project-private>
