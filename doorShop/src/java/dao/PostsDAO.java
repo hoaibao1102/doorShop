@@ -32,19 +32,19 @@ public class PostsDAO implements IDAO<Posts, Integer> {
             st.setString(1, e.getTitle());
             st.setString(2, e.getSummary());
             st.setString(3, e.getContent());
-            
+
             if (e.getMedia_id() != null) {
                 st.setInt(4, e.getMedia_id());
             } else {
                 st.setNull(4, Types.INTEGER);
             }
-            
+
             if (e.getPublished_at() != null) {
                 st.setTimestamp(5, new Timestamp(e.getPublished_at().getTime()));
             } else {
                 st.setNull(5, Types.TIMESTAMP);
             }
-            
+
             st.setInt(6, e.getAuthor_id());
             st.setString(7, e.getStatus());
 
@@ -121,23 +121,67 @@ public class PostsDAO implements IDAO<Posts, Integer> {
         return list;
     }
 
+    public List<Posts> searchByTitle(String title) {
+        List<Posts> list = new ArrayList<>();
+        String sql = "SELECT * FROM Posts WHERE title LIKE ?";
+        Connection c = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            c = DBUtils.getConnection();
+            st = c.prepareStatement(sql);
+            st.setString(1, "%" + title + "%");
+            rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(map(rs));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            close(c, st, rs);
+        }
+        return list;
+    }
+
+    public List<Posts> getByAuthorId(int authorId) {
+        List<Posts> list = new ArrayList<>();
+        String sql = "SELECT * FROM Posts WHERE author_id = ?";
+        Connection c = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            c = DBUtils.getConnection();
+            st = c.prepareStatement(sql);
+            st.setInt(1, authorId);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(map(rs));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            close(c, st, rs);
+        }
+        return list;
+    }
+
     private Posts map(ResultSet rs) throws SQLException {
         Posts p = new Posts();
         p.setPost_id(rs.getInt("post_id"));
         p.setTitle(rs.getString("title"));
         p.setSummary(rs.getString("summary"));
         p.setContent(rs.getString("content"));
-        
+
         int mediaIdValue = rs.getInt("media_id");
         if (!rs.wasNull()) {
             p.setMedia_id(mediaIdValue);
         }
-        
+
         Timestamp publishedTs = rs.getTimestamp("published_at");
         if (publishedTs != null) {
             p.setPublished_at(new java.util.Date(publishedTs.getTime()));
         }
-        
+
         p.setAuthor_id(rs.getInt("author_id"));
         p.setStatus(rs.getString("status"));
 
