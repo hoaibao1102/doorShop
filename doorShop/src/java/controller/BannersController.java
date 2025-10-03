@@ -41,22 +41,22 @@ public class BannersController extends HttpServlet {
                 url = handleViewAllBanners(request, response);
             } else {
                 switch (action) {
-                    case "viewAll":
+                    case "viewAllBanners":
                         url = handleViewAllBanners(request, response);
                         break;
-                    case "add":
+                    case "addBanner":
                         url = handleAddBanner(request, response);
                         break;
-                    case "edit":
+                    case "editBanner":
                         url = handleEditBanner(request, response);
                         break;
-                    case "delete":
+                    case "deleteBanner":
                         url = handleDeleteBanner(request, response);
                         break;
-                    case "search":
+                    case "searchBanner":
                         url = handleSearchBanner(request, response);
                         break;
-                    case "toggleStatus":
+                    case "toggleStatusBanner":
                         url = handleToggleStatus(request, response);
                         break;
                     default:

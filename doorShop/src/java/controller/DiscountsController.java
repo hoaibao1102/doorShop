@@ -42,22 +42,22 @@ public class DiscountsController extends HttpServlet {
                 url = handleViewAllDiscounts(request, response);
             } else {
                 switch (action) {
-                    case "viewAll":
+                    case "viewAllDiscounts":
                         url = handleViewAllDiscounts(request, response);
                         break;
-                    case "add":
+                    case "addDiscount":
                         url = handleAddDiscount(request, response);
                         break;
-                    case "edit":
+                    case "editDiscount":
                         url = handleEditDiscount(request, response);
                         break;
-                    case "delete":
+                    case "deleteDiscount":
                         url = handleDeleteDiscount(request, response);
                         break;
-                    case "search":
+                    case "searchDiscount":
                         url = handleSearchDiscount(request, response);
                         break;
-                    case "toggleStatus":
+                    case "toggleStatusDiscount":
                         url = handleToggleStatus(request, response);
                         break;
                     case "getByProduct":

@@ -40,28 +40,28 @@ public class MediaController extends HttpServlet {
                 url = handleViewAllMedia(request, response);
             } else {
                 switch (action) {
-                    case "viewAll":
+                    case "viewAllMedia":
                         url = handleViewAllMedia(request, response);
                         break;
-                    case "add":
+                    case "addMedia":
                         url = handleAddMedia(request, response);
                         break;
-                    case "edit":
+                    case "editMedia":
                         url = handleEditMedia(request, response);
                         break;
-                    case "view":
+                    case "viewMedia":
                         url = handleViewMedia(request, response);
                         break;
-                    case "delete":
+                    case "deleteMedia":
                         url = handleDeleteMedia(request, response);
                         break;
-                    case "search":
+                    case "searchMedia":
                         url = handleSearchMedia(request, response);
                         break;
                     case "filterByType":
                         url = handleFilterByType(request, response);
                         break;
-                    case "upload":
+                    case "uploadMedia":
                         url = handleUploadMedia(request, response);
                         break;
                     default:

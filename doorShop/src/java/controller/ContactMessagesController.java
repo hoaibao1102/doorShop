@@ -40,22 +40,22 @@ public class ContactMessagesController extends HttpServlet {
                 url = handleViewAllMessages(request, response);
             } else {
                 switch (action) {
-                    case "viewAll":
+                    case "viewAllMessages":
                         url = handleViewAllMessages(request, response);
                         break;
-                    case "add":
+                    case "addMessage":
                         url = handleAddMessage(request, response);
                         break;
-                    case "view":
+                    case "viewMessage":
                         url = handleViewMessage(request, response);
                         break;
-                    case "reply":
+                    case "replyMessage":
                         url = handleReplyMessage(request, response);
                         break;
-                    case "delete":
+                    case "deleteMessage":
                         url = handleDeleteMessage(request, response);
                         break;
-                    case "search":
+                    case "searchMessage":
                         url = handleSearchMessage(request, response);
                         break;
                     case "markAsRead":
