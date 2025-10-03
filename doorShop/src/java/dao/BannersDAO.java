@@ -105,6 +105,27 @@ public class BannersDAO implements IDAO<Banners, Integer> {
         return list;
     }
 
+    public List<Banners> getVisibleBanners() {
+        List<Banners> list = new ArrayList<>();
+        String sql = "SELECT * FROM Banners WHERE status = 'visible'";
+        Connection c = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            c = DBUtils.getConnection();
+            st = c.prepareStatement(sql);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(map(rs));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            close(c, st, rs);
+        }
+        return list;
+    }
+
     private Banners map(ResultSet rs) throws SQLException {
         Banners b = new Banners();
         b.setBanner_id(rs.getInt("banner_id"));

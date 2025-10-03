@@ -114,6 +114,28 @@ public class ProductsDAO implements IDAO<Products, Integer> {
         }
         return list;
     }
+    
+    public List<Products> getByCategoryId(int categoryId) {
+        List<Products> list = new ArrayList<>();
+        String sql = "SELECT * FROM Products WHERE category_id = ?";
+        Connection c = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            c = DBUtils.getConnection();
+            st = c.prepareStatement(sql);
+            st.setInt(1, categoryId);
+            rs = st.executeQuery();
+            while (rs.next()){
+                list.add(map(rs));
+            }
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            close(c, st, rs);
+        }
+        return list;
+    }
 
     private Products map(ResultSet rs) throws SQLException {
         Products p = new Products();

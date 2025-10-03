@@ -108,6 +108,24 @@ public class ContactMessagesDAO implements IDAO<ContactMessages, Integer> {
         return list;
     }
 
+    public boolean updateStatus(int messageId, String status) {
+        String sql = "UPDATE ContactMessages SET status = ? WHERE message_id = ?";
+        Connection c = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            c = DBUtils.getConnection();
+            st = c.prepareStatement(sql);
+            st.setString(1, status);
+            st.setInt(2, messageId);
+            int rows = st.executeUpdate();
+            return rows > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     private ContactMessages map(ResultSet rs) throws SQLException {
         ContactMessages cm = new ContactMessages();
         cm.setMessage_id(rs.getInt("message_id"));

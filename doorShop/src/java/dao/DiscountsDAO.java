@@ -120,6 +120,54 @@ public class DiscountsDAO implements IDAO<Discounts, Integer> {
         return list;
     }
 
+    public List<Discounts> getActiveDiscount() {
+        List<Discounts> list = new ArrayList<>();
+        String sql = "SELECT * FROM Discounts WHERE status = 'active' AND end_date >= CAST(GETDATE() AS DATE)";
+        Connection c = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            c = DBUtils.getConnection();
+            st = c.prepareStatement(sql);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(map(rs));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            close(c, st, rs);
+        }
+        return list;
+    }
+
+    public Discounts getByProductId(int productId) {
+        String sql = "SELECT * FROM Discounts WHERE product_id = ? AND status = 'active'";
+        Connection c = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            c = DBUtils.getConnection();
+            st = c.prepareStatement(sql);
+            rs = st.executeQuery();
+            if (rs.next()) {
+                Discounts d = new Discounts();
+                d.setDiscount_id(rs.getInt("discount_id"));
+                d.setProduct_id(rs.getInt("product_id"));
+                d.setDiscount_percent(rs.getInt("discount_percent"));
+                d.setStart_date(rs.getDate("start_date"));
+                d.setEnd_date(rs.getDate("end_date"));
+                d.setStatus(rs.getString("status"));
+                return d;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            close(c, st, rs);
+        }
+        return null;
+    }
+
     private Discounts map(ResultSet rs) throws SQLException {
         Discounts d = new Discounts();
         d.setDiscount_id(rs.getInt("discount_id"));
