@@ -39,19 +39,19 @@ public class ProductImagesController extends HttpServlet {
                 url = handleViewAllImages(request, response);
             } else {
                 switch (action) {
-                    case "viewAll":
+                    case "viewAllImages":
                         url = handleViewAllImages(request, response);
                         break;
-                    case "add":
+                    case "addImage":
                         url = handleAddImage(request, response);
                         break;
-                    case "edit":
+                    case "editImage":
                         url = handleEditImage(request, response);
                         break;
-                    case "view":
+                    case "viewImage":
                         url = handleViewImage(request, response);
                         break;
-                    case "delete":
+                    case "deleteImage":
                         url = handleDeleteImage(request, response);
                         break;
                     case "viewByProduct":
@@ -60,7 +60,7 @@ public class ProductImagesController extends HttpServlet {
                     case "setPrimary":
                         url = handleSetPrimary(request, response);
                         break;
-                    case "upload":
+                    case "uploadImage":
                         url = handleUploadImage(request, response);
                         break;
                     default:

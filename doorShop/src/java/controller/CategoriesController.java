@@ -38,22 +38,22 @@ public class CategoriesController extends HttpServlet {
                 url = handleViewAllCategories(request, response);
             } else {
                 switch (action) {
-                    case "viewAll":
+                    case "viewAllCategories":
                         url = handleViewAllCategories(request, response);
                         break;
-                    case "add":
+                    case "addCategory":
                         url = handleAddCategory(request, response);
                         break;
-                    case "edit":
+                    case "editCategory":
                         url = handleEditCategory(request, response);
                         break;
-                    case "delete":
+                    case "deleteCategory":
                         url = handleDeleteCategory(request, response);
                         break;
-                    case "search":
+                    case "searchCategory":
                         url = handleSearchCategory(request, response);
                         break;
-                    case "toggleStatus":
+                    case "toggleStatusCategory":
                         url = handleToggleStatus(request, response);
                         break;
                     default:

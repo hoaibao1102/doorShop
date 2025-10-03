@@ -224,8 +224,9 @@
     </div>
 
     <!-- Search -->
-    <form class="hdr-search area-search" action="search" method="get" role="search">
-      <input type="text" name="q" placeholder="Tìm kiếm…" aria-label="Tìm kiếm">
+    <form class="hdr-search area-search" action="MainController" method="get" role="search">
+      <input type="hidden" name="action" value="searchProduct"> 
+      <input type="text" name="keyword" placeholder="Tìm kiếm…" aria-label="Tìm kiếm">
       <button type="submit" aria-label="Tìm"><span class="ico"></span></button>
     </form>
 

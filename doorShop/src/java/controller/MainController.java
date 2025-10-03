@@ -29,6 +29,26 @@ public class MainController extends HttpServlet {
                 url = "/UserController";
             } else if (isProductAction(action)) {
                 url = "/ProductController";
+            } else if (isAdminAction(action)){
+                url = "/AdminController";
+            } else if (isBannersAction(action)){
+                url = "/BannersController";
+            } else if (isCategoriesAction(action)){
+                url = "/CategoriesController";
+            } else if (isContactMessagesAction(action)){
+                url = "/ContactMessagesController";
+            } else if (isDiscountsAction(action)){
+                url = "/DiscountsController";
+            } else if (isMediaAction(action)){
+                url = "/MediaController";
+            } else if (isPostsAction(action)){
+                url = "/PostsController";
+            } else if (isProductImagesAction(action)){
+                url = "/ProductImagesController";
+            } else if (isUploadImageAction(action)){
+                url = "/UploadImageController";
+            } else if (isUploadVideoAction(action)){
+                url = "/UploadVideoController";
             }
         } catch (Exception e) {
         } finally {
@@ -82,9 +102,99 @@ public class MainController extends HttpServlet {
     }
 
     private boolean isProductAction(String action) {
-        return "searchProduct".equals(action)
+        return "viewAllProduct".equals(action)
+                || "searchProduct".equals(action)
                 || "showAddProductForm".equals(action)
-                || "addProduct".equals(action);
+                || "addProduct".equals(action)
+                || "editProduct".equals(action);
+    }
+
+    private boolean isAdminAction(String action) {
+        return "viewAllAdmins".equals(action)
+                || "addAdmin".equals(action)
+                || "editAdmin".equals(action)
+                || "deleteAdmin".equals(action)
+                || "searchAdmin".equals(action)
+                || "changePassword".equals(action);
+    }
+
+    private boolean isBannersAction(String action) {
+        return "viewAllBanners".equals(action)
+                || "addBanner".equals(action)
+                || "editBanner".equals(action)
+                || "deleteBanner".equals(action)
+                || "searchBanner".equals(action)
+                || "toggleStatusBanner".equals(action);
+    }
+
+    private boolean isCategoriesAction(String action) {
+        return "viewAllCategories".equals(action)
+                || "addCategory".equals(action)
+                || "editCategory".equals(action)
+                || "deleteCategory".equals(action)
+                || "searchCategory".equals(action)
+                || "toggleStatusCategory".equals(action);
+    }
+
+    private boolean isContactMessagesAction(String action) {
+        return "viewAllMessages".equals(action)
+                || "addMessage".equals(action)
+                || "viewMessage".equals(action)
+                || "replyMessage".equals(action)
+                || "deleteMessage".equals(action)
+                || "searchMessage".equals(action)
+                || "markAsRead".equals(action)
+                || "markAsReplied".equals(action);
+    }
+
+    private boolean isDiscountsAction(String action) {
+        return "viewAllDiscounts".equals(action)
+                || "addDiscount".equals(action)
+                || "editDiscount".equals(action)
+                || "deleteDiscount".equals(action)
+                || "searchDiscount".equals(action)
+                || "toggleStatusDiscount".equals(action)
+                || "getByProduct".equals(action);
+    }
+
+    private boolean isMediaAction(String action) {
+        return "viewAllMedia".equals(action)
+                || "addMedia".equals(action)
+                || "editMedia".equals(action)
+                || "viewMedia".equals(action)
+                || "deleteMedia".equals(action)
+                || "searchMedia".equals(action)
+                || "filterByType".equals(action)
+                || "uploadMedia".equals(action);
+    }
+
+    private boolean isPostsAction(String action) {
+        return "viewAllPosts".equals(action)
+                || "addPost".equals(action)
+                || "editPost".equals(action)
+                || "deletePost".equals(action)
+                || "searchPost".equals(action)
+                || "toggleStatusPost".equals(action)
+                || "publishPost".equals(action);
+    }
+
+    private boolean isProductImagesAction(String action) {
+        return "viewAllImages".equals(action)
+                || "addImage".equals(action)
+                || "editImage".equals(action)
+                || "viewImage".equals(action)
+                || "deleteImage".equals(action)
+                || "viewByProduct".equals(action)
+                || "setPrimary".equals(action)
+                || "uploadImage".equals(action);
+    }
+
+    private boolean isUploadImageAction(String action) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private boolean isUploadVideoAction(String action) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

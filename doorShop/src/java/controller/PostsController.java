@@ -45,25 +45,25 @@ public class PostsController extends HttpServlet {
                 url = handleViewAllPosts(request, response);
             } else {
                 switch (action) {
-                    case "viewAll":
+                    case "viewAllPosts":
                         url = handleViewAllPosts(request, response);
                         break;
-                    case "add":
+                    case "addPost":
                         url = handleAddPost(request, response);
                         break;
-                    case "edit":
+                    case "editPost":
                         url = handleEditPost(request, response);
                         break;
-                    case "delete":
+                    case "deletePost":
                         url = handleDeletePost(request, response);
                         break;
-                    case "search":
+                    case "searchPost":
                         url = handleSearchPost(request, response);
                         break;
-                    case "toggleStatus":
+                    case "toggleStatusPost":
                         url = handleToggleStatus(request, response);
                         break;
-                    case "publish":
+                    case "publishPost":
                         url = handlePublishPost(request, response);
                         break;
                     default:

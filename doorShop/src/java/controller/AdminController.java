@@ -40,19 +40,19 @@ public class AdminController extends HttpServlet {
                 url = handleViewAllAdmins(request, response);
             } else {
                 switch (action) {
-                    case "viewAll":
+                    case "viewAllAdmins":
                         url = handleViewAllAdmins(request, response);
                         break;
-                    case "add":
+                    case "addAdmin":
                         url = handleAddAdmin(request, response);
                         break;
-                    case "edit":
+                    case "editAdmin":
                         url = handleEditAdmin(request, response);
                         break;
-                    case "delete":
+                    case "deleteAdmin":
                         url = handleDeleteAdmin(request, response);
                         break;
-                    case "search":
+                    case "searchAdmin":
                         url = handleSearchAdmin(request, response);
                         break;
                     case "changePassword":

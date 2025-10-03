@@ -37,23 +37,37 @@ public class ProductController extends HttpServlet {
     private final ProductsDAO productsdao = new ProductsDAO();
     private final ProductImagesDAO productImagesDAO = new ProductImagesDAO();
 
+    private static final String ERROR_PAGE = "error.jsp"; 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = "welcome.jsp";
+        String url = ERROR_PAGE;
         try {
             String action = request.getParameter("action");
 
             if (action == null || action.isEmpty()) {
                 url = handleViewAllProducts(request, response);
-            } else if (action.equals("searchProduct")) {
-                url = handleProductSearching(request, response);
-            } else if (action.equals("showAddProductForm")) {
-                url = handleShowAddProductForm(request, response);
-            } else if (action.equals("addProduct")) {
-                url = handleProductAdding(request, response);
-            } else if (action.equals("editProduct")) {
-                url = handleProductEditing(request, response);
+            } else {
+                switch (action) {
+                    case "viewAllProduct":
+                        url = handleViewAllProducts(request, response);
+                        break;
+                    case "searchProduct":
+                        url = handleProductSearching(request, response);
+                        break;
+                    case "showAddProductForm":
+                        url = handleShowAddProductForm(request, response);
+                        break;
+                    case "addProduct":
+                        url = handleProductAdding(request, response);
+                        break;
+                    case "editProduct":
+                        url = handleProductEditing(request, response);
+                        break;
+                    default:
+                        request.setAttribute("error", "Invalid action: " + action);
+                        url = ERROR_PAGE;
+                }
             }
         } catch (Exception e) {
             request.setAttribute("checkError", "Unexpected error: " + e.getMessage());
